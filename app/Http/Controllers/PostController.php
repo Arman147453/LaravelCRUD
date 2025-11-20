@@ -6,5 +6,11 @@ use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
-    //
+    public function create() {
+        return view('create');
+    }
+
+    public function ourfilestore() {
+        return 'test';
+    }
 }
