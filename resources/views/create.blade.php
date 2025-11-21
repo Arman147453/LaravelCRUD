@@ -3,58 +3,67 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Create Post</title>
 
-    <style type="text/tailwindcss">
-        @layer utilities{
-            .container{
-                @apply px-10 mx-auto;
-            }
-        }
-    </style>
-
-    <title>Create</title>
+    <!-- Tailwind or Bootstrap (optional) -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss/dist/tailwind.min.css" rel="stylesheet">
 </head>
-<body>
-    <div class="container">
-        
-        <div class="flex justify-between my-5">
-            <h2 class="text-red-500 text-xl font-semibold">Create</h2>
-            <a href="/" class="bg-green-600 text-white rounded py-2.5 px-4">Back to Home</a>
-        </div>
+<body class="bg-gray-100 p-10">
 
-        <div>
-            <form action="" method="POST" enctype="multipart/form-data">
-                <div class="flex flex-col gap-5">
+    <div class="max-w-xl mx-auto bg-white p-6 rounded shadow">
 
-                    <input 
-                        type="text" 
-                        name="name" 
-                        placeholder="Enter name"
-                        class="border border-gray-300 rounded p-2"
-                    >
+        <h2 class="text-2xl font-bold mb-4">Create Post</h2>
 
-                    <input 
-                        type="text" 
-                        name="description" 
-                        placeholder="Enter description"
-                        class="border border-gray-300 rounded p-2"
-                    >
+        <form action="{{ route('store') }}" method="POST" enctype="multipart/form-data">
+            @csrf
 
-                    <input 
-                        type="file" 
-                        name="image"
-                        class="border border-gray-300 rounded p-2"
-                    >
+            <!-- Name -->
+            <label class="block font-semibold">Name:</label>
+            <input 
+                type="text" 
+                name="name" 
+                value="{{ old('name') }}"
+                class="border border-gray-300 w-full p-2 rounded"
+                placeholder="Enter post name"
+            >
+            @error('name')
+                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+            @enderror
 
-                    <input 
-                        type="submit" 
-                        value="Submit"
-                        class="bg-blue-600 text-white py-2 rounded cursor-pointer"
-                    >
-                </div>
-            </form>
-        </div>
+
+            <!-- Description -->
+            <label class="block font-semibold mt-4">Description:</label>
+            <textarea 
+                name="description" 
+                class="border border-gray-300 w-full p-2 rounded"
+                placeholder="Enter description"
+            >{{ old('description') }}</textarea>
+            @error('description')
+                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+            @enderror
+
+
+            <!-- Image -->
+            <label class="block font-semibold mt-4">Image:</label>
+            <input 
+                type="file" 
+                name="image"
+                class="border border-gray-300 w-full p-2 rounded"
+            >
+            @error('image')
+                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+            @enderror
+
+
+            <!-- Submit button -->
+            <button 
+                type="submit"
+                class="bg-blue-600 text-white px-4 py-2 mt-5 rounded"
+            >
+                Submit
+            </button>
+
+        </form>
 
     </div>
 
